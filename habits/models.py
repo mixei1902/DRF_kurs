@@ -1,6 +1,12 @@
 from users.models import User
 from django.db import models
-
+from .validators import (
+    validate_reward_or_linked_habit,
+    validate_time_to_complete,
+    validate_linked_habit_is_pleasant,
+    validate_pleasant_habit,
+    validate_periodicity
+)
 
 class Habit(models.Model):
     """
@@ -80,32 +86,12 @@ class Habit(models.Model):
         help_text="Привычки можно публиковать в общий доступ, чтобы другие пользователи могли брать в пример чужие привычки",
     )
 
-    def save(self, *args, **kwargs):
-        # Проверка, чтобы не было заполнено одновременно поле вознаграждения и поле связанной привычки
-        if self.linked_habit and self.reward:
-            raise ValueError(
-                "Нельзя одновременно указать и вознаграждение, и связанную привычку."
-            )
-
-        # Проверка, чтобы время на выполнение не превышало 120 секунд
-        if self.time_to_complete > 120:
-            raise ValueError("Время на выполнение не может превышать 120 секунд.")
-
-        # Проверка, чтобы в связанные привычки попадали только привычки с признаком приятной привычки
-        if self.linked_habit and not self.linked_habit.is_pleasant:
-            raise ValueError("Связанная привычка должна быть приятной.")
-
-        # Проверка, чтобы у приятной привычки не было вознаграждения или связанной привычки
-        if self.is_pleasant and (self.reward or self.linked_habit):
-            raise ValueError(
-                "У приятной привычки не может быть вознаграждения или связанной привычки."
-            )
-
-        # Проверка, чтобы привычка выполнялась не реже, чем 1 раз в 7 дней
-        if self.periodicity < 1 or self.periodicity > 7:
-            raise ValueError("Периодичность должна быть в пределах от 1 до 7 дней.")
-
-        super().save(*args, **kwargs)
+    def clean(self):
+        validate_reward_or_linked_habit(self.reward, self.linked_habit)
+        validate_time_to_complete(self.time_to_complete)
+        validate_linked_habit_is_pleasant(self.linked_habit)
+        validate_pleasant_habit(self.is_pleasant, self.reward, self.linked_habit)
+        validate_periodicity(self.periodicity)
 
     class Meta:
         verbose_name = "Привычка"

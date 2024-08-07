@@ -11,3 +11,8 @@ class HabitSerializer(serializers.ModelSerializer):
             'linked_habit', 'periodicity', 'reward', 'time_to_complete', 'is_public'
         ]
         read_only_fields = ['user']
+
+    def validate(self, data):
+        instance = Habit(**data)
+        instance.clean()
+        return data
