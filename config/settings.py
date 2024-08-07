@@ -114,10 +114,10 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CORS_ALLOWED_ORIGINS = [
     "http://localhost",
 ]
-CELERY_BROKER_URL = 'redis://localhost:6379/0'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_BROKER_URL = "redis://localhost:6379/0"
+CELERY_RESULT_BACKEND = "redis://localhost:6379/0"
 
-CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
 
-TELEGRAM_URL = 'https://api.telegram.org/bot'
-TELEGRAM_TOKEN = '6427307264:AAGLpnkdM9vL-ayx8DQv1yRJimC6Mdl7HM4'
+TELEGRAM_URL = "https://api.telegram.org/bot"
+TELEGRAM_TOKEN = "6427307264:AAGLpnkdM9vL-ayx8DQv1yRJimC6Mdl7HM4"

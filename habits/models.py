@@ -5,8 +5,9 @@ from .validators import (
     validate_time_to_complete,
     validate_linked_habit_is_pleasant,
     validate_pleasant_habit,
-    validate_periodicity
+    validate_periodicity,
 )
+
 
 class Habit(models.Model):
     """

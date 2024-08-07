@@ -3,7 +3,9 @@ from django.core.exceptions import ValidationError
 
 def validate_reward_or_linked_habit(reward, linked_habit):
     if reward and linked_habit:
-        raise ValidationError("Нельзя одновременно указать и вознаграждение, и связанную привычку.")
+        raise ValidationError(
+            "Нельзя одновременно указать и вознаграждение, и связанную привычку."
+        )
 
 
 def validate_time_to_complete(time_to_complete):
@@ -18,7 +20,9 @@ def validate_linked_habit_is_pleasant(linked_habit):
 
 def validate_pleasant_habit(pleasant, reward, linked_habit):
     if pleasant and (reward or linked_habit):
-        raise ValidationError("У приятной привычки не может быть вознаграждения или связанной привычки.")
+        raise ValidationError(
+            "У приятной привычки не может быть вознаграждения или связанной привычки."
+        )
 
 
 def validate_periodicity(periodicity):

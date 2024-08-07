@@ -11,4 +11,5 @@ redis==5.0.8
 drf-yasg==1.21.7
 setuptools==72.1.0
 pillow==10.4.0
+coverage==7.6.1
 

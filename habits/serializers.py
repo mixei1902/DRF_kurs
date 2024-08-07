@@ -7,10 +7,19 @@ class HabitSerializer(serializers.ModelSerializer):
     class Meta:
         model = Habit
         fields = [
-            'id', 'user', 'place', 'time', 'action', 'is_pleasant',
-            'linked_habit', 'periodicity', 'reward', 'time_to_complete', 'is_public'
+            "id",
+            "user",
+            "place",
+            "time",
+            "action",
+            "is_pleasant",
+            "linked_habit",
+            "periodicity",
+            "reward",
+            "time_to_complete",
+            "is_public",
         ]
-        read_only_fields = ['user']
+        read_only_fields = ["user"]
 
     def validate(self, data):
         instance = Habit(**data)
